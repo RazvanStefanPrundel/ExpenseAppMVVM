@@ -12,7 +12,3 @@ val rxModules: Module = module {
     factory { CompositeDisposable() }
 }
 
-val networkModule = module {
-
-}
-

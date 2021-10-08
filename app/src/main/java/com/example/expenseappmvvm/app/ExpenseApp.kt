@@ -26,8 +26,6 @@ class ExpenseApp : Application() {
             androidContext(this@ExpenseApp)
             modules(
                 listOf(
-                    databaseModule,
-                    preferencesModule,
                     viewModelsModule,
                     rxModules,
                     repositoryModule
