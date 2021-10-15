@@ -73,6 +73,8 @@ dependencies {
     implementation "org.koin:koin-android:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
     implementation "org.koin:koin-android-architecture:0.9.1"
+    implementation 'androidx.room:room-runtime:2.3.0'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0'
 
     // lifecycle
     kapt 'androidx.lifecycle:lifecycle-compiler:2.3.1'
