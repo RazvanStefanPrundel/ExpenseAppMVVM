@@ -1,4 +1,4 @@
-package com.kubyo.kubyo.utils;
+package com.example.expenseappmvvm.utils;
 
 import android.util.Log;
 

@@ -28,7 +28,8 @@ class ExpenseApp : Application() {
                 listOf(
                     viewModelsModule,
                     rxModules,
-                    repositoryModule
+                    repositoryModule,
+                    databaseModule
                 )
             )
         }

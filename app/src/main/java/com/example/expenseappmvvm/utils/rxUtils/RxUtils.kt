@@ -1,3 +1,8 @@
 package com.example.expenseappmvvm.utils.rxUtils
 
-//Add composite disposable here
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+
+fun Disposable.disposeBy(compositeDisposable: CompositeDisposable) {
+    compositeDisposable.add(this)
+}
