@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.databinding.ActivityMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val homeViewModel: MainViewModel by viewModel()
