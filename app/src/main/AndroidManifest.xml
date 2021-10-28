@@ -5,18 +5,38 @@
     <application
         android:name=".app.ExpenseApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_img"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/img_income"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseAppMVVM">
-        <activity android:name=".screen.mainScreen.MainActivity">
+        <activity
+            android:name=".screen.actionScreen.ActionActivity"
+            android:theme="@style/noToolbarActivity"/>
+        <activity
+            android:name=".screen.loginScreen.LoginActivity"
+            android:theme="@style/noToolbarActivity"/>
+        <activity
+            android:name=".screen.splashScreen.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+        <activity
+            android:name=".screen.registerScreen.RegisterActivity"
+            android:theme="@style/noToolbarActivity" />
+        <activity
+            android:name=".screen.mainScreen.MainActivity"
+            android:theme="@style/noToolbarActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".screen.resetScreen.ResetActivity"
+            android:theme="@style/noToolbarActivity" />
     </application>
 
 </manifest>

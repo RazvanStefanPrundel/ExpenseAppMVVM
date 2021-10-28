@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.expenseappmvvm.screen.mainScreen.budgetScreen.BudgetViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_budget_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginTop="@dimen/space_20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/budget_base_info"
+                android:textSize="@dimen/size_18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_current_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginVertical="@dimen/space_11dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_budget_info">
+
+                <TextView
+                    android:id="@+id/tv_current_balance_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_current_balance"
+                    android:textSize="@dimen/size_16sp" />
+
+                <TextView
+                    android:id="@+id/tv_current_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="right"
+                    android:text="@{viewModel.currentBalance}"
+                    android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_today_expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginVertical="@dimen/space_11dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_current_balance">
+
+                <TextView
+                    android:id="@+id/tv_today_expenses_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="left"
+                    android:text="@string/txt_today_expenses"
+                    android:textSize="@dimen/size_16sp" />
+
+                <TextView
+                    android:id="@+id/tv_today_expenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="right"
+                    android:text="@{viewModel.todayExpense}"
+                    android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_week_expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginVertical="@dimen/space_11dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_today_expenses">
+
+                <TextView
+                    android:id="@+id/tv_week_expenses_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_week_expenses"
+                    android:textSize="@dimen/size_16sp" />
+
+                <TextView
+                    android:id="@+id/tv_week_expenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="right"
+                    android:text="@{viewModel.weekExpense}"
+                    android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_month_expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginVertical="@dimen/space_11dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_week_expenses">
+
+                <TextView
+                    android:id="@+id/tv_month_expenses_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_month_expenses"
+                    android:textSize="@dimen/size_16sp" />
+
+                <TextView
+                    android:id="@+id/tv_month_expenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="right"
+                    android:text="@{viewModel.monthExpense}"
+                    android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_budget_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30dp"
+                android:layout_marginVertical="@dimen/space_11dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/budget_base_details"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_month_expenses" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart_budget_details"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_300dp"
+                android:layout_margin="@dimen/space_5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_budget_details" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

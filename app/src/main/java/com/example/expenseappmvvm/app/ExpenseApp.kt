@@ -29,7 +29,8 @@ class ExpenseApp : Application() {
                     viewModelsModule,
                     rxModules,
                     repositoryModule,
-                    databaseModule
+                    databaseModule,
+                    sharedPrefRepository
                 )
             )
         }

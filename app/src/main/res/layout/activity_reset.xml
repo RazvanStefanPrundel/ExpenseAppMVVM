@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.example.expenseappmvvm.utils.FormErrorsEnum" />
+
+        <variable
+            name="viewModel"
+            type="com.example.expenseappmvvm.screen.resetScreen.ResetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        tools:context=".ResetActivity">
+
+
+        <ImageView
+            android:id="@+id/login_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_67dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_img" />
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_30dp"
+            android:layout_marginTop="@dimen/space_34dp"
+            android:text="@string/reset_screen_text"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_img" />
+
+        <Button
+            android:id="@+id/forgot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_30dp"
+            android:backgroundTint="@color/orange"
+            android:text="@string/reset_text"
+            android:textSize="@dimen/size_16sp"
+            android:onClick="@{()->viewModel.verifyEmailInDatabase()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgot_email_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/forgot_email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_30dp"
+            android:layout_marginTop="@dimen/space_18dp"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/forgot_email_inputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/email_login"
+                android:text="@={viewModel.email}"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/email_err_text_view_reset"
+            android:layout_width="@dimen/space_0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/wrong_email"
+            android:textColor="@color/red"
+            android:visibility="@{viewModel.formErrorsList.contains(FormErrorsEnum.INVALID_EMAIL) ? View.VISIBLE: View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/forgot_email_layout"
+            app:layout_constraintStart_toStartOf="@+id/forgot_email_layout"
+            app:layout_constraintTop_toBottomOf="@+id/forgot_email_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

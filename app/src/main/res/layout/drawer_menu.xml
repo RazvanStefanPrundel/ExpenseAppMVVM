@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.expenseappmvvm.screen.mainScreen.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatar_img"
+                android:layout_width="@dimen/space_100dp"
+                android:layout_height="@dimen/space_100dp"
+                android:layout_marginStart="@dimen/space_20dp"
+                android:layout_marginTop="@dimen/space_34dp"
+                app:cardCornerRadius="@dimen/space_100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/space_100dp"
+                    android:layout_height="@dimen/space_100dp"
+                    android:background="@color/green"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/default_avatar" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/hello_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20dp"
+                android:layout_marginTop="@dimen/space_11dp"
+                android:layout_marginBottom="@dimen/space_30dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{viewModel.userName}"
+                android:textSize="@dimen/size_20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatar_img" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/space_50dp"
+            android:layout_marginStart="@dimen/space_30dp"
+            android:fontFamily="@font/roboto_bold"
+            android:onClick="@{()->viewModel.logoutUserOnClick()}"
+            android:text="@string/logout_text"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

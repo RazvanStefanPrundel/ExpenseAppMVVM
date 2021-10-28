@@ -11,4 +11,3 @@ val rxModules: Module = module {
     single { RxBus() }
     factory { CompositeDisposable() }
 }
-

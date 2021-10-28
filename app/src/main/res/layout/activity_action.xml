@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.expenseappmvvm.screen.actionScreen.ActionViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ActionActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/txt_date_action"
+                android:textSize="@dimen/size_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <EditText
+                android:id="@+id/et_add_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:focusedByDefault="false"
+                android:onClick="@{()->viewModel.onClickOpenDateTimePicker()}"
+                android:text="@={viewModel.date}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/txt_amount_action"
+                android:textSize="@dimen/size_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_add_date" />
+
+            <EditText
+                android:id="@+id/et_amount_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:maxLength="7"
+                android:text="@={viewModel.amount}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_amount"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/txt_category_action"
+                android:textSize="@dimen/size_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_amount_value" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_category" />
+
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/txt_details_action"
+                android:textSize="@dimen/size_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_category" />
+
+            <EditText
+                android:id="@+id/et_add_details"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:maxLength="100"
+                android:text="@={viewModel.expense.expenseDetails}"
+                app:layout_constraintEnd_toStartOf="@+id/ib_photo_pick"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details" />
+
+            <ImageView
+                android:id="@+id/iv_detail_photo"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:src="@drawable/navbar_expense"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ib_delete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_add_details" />
+
+            <ImageButton
+                android:id="@+id/ib_photo_pick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:background="@drawable/img_photo_pick"
+                android:onClick="@{()->viewModel.pickImage()}"
+                app:layout_constraintBottom_toBottomOf="@+id/et_add_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_add_details" />
+
+            <ImageButton
+                android:id="@+id/ib_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_20dp"
+                android:onClick="@{()->viewModel.deleteImage()}"
+                android:background="@drawable/img_delete"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_detail_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_detail_photo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>
