@@ -61,7 +61,7 @@
                     android:layout_margin="@dimen/space_5dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="right"
-                    android:text="@{viewModel.currentBalance}"
+                    android:text="@{viewModel.currentBalance.toString()}"
                     android:textSize="@dimen/size_16sp" />
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_margin="@dimen/space_5dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="right"
-                    android:text="@{viewModel.todayExpense}"
+                    android:text="@{viewModel.todayExpense.toString()}"
                     android:textSize="@dimen/size_16sp" />
             </LinearLayout>
 
@@ -124,7 +124,7 @@
                     android:layout_margin="@dimen/space_5dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="right"
-                    android:text="@{viewModel.weekExpense}"
+                    android:text="@{viewModel.weekExpense.toString()}"
                     android:textSize="@dimen/size_16sp" />
             </LinearLayout>
 
@@ -155,7 +155,7 @@
                     android:layout_margin="@dimen/space_5dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="right"
-                    android:text="@{viewModel.monthExpense}"
+                    android:text="@{viewModel.monthExpense.toString()}"
                     android:textSize="@dimen/size_16sp" />
             </LinearLayout>
 
