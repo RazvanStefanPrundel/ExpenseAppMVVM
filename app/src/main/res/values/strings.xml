@@ -78,4 +78,6 @@
     <string name="action_success">Action add successes!</string>
     <string name="action_failed">Action add failed!</string>
     <string name="no_user_found">No user find with this email!</string>
+    <string name="field_empty">Field cannot be empty</string>
+    <string name="amount_zero">Amount cannot be 0</string>
 </resources>

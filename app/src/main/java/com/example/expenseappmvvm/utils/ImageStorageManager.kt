@@ -6,13 +6,16 @@ import android.graphics.BitmapFactory
 import java.io.File
 import java.io.FileInputStream
 
+import android.content.ContextWrapper
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import java.io.FileOutputStream
+import java.io.IOException
+
 class ImageStorageManager {
     companion object {
-        fun saveToInternalStorage(
-            context: Context,
-            bitmapImage: Bitmap,
-            imageFileName: String
-        ): String {
+
+        fun saveToInternalStorage(context: Context, bitmapImage: Bitmap, imageFileName: String): String {
             context.openFileOutput(imageFileName, Context.MODE_PRIVATE).use { fos ->
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 50, fos)
             }
@@ -30,5 +33,6 @@ class ImageStorageManager {
             val file = File(dir, imageFileName)
             return file.delete()
         }
+
     }
 }

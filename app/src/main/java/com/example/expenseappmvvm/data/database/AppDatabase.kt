@@ -13,7 +13,7 @@ import com.example.expenseappmvvm.data.database.entities.User
 @TypeConverters(CategoryConverter::class, DateConverter::class)
 @Database(
     entities = [User::class, Expense::class],
-    version = 3
+    version = 5
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

@@ -9,6 +9,7 @@ import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.databinding.ActivityRegisterBinding
 import com.example.expenseappmvvm.screen.actionScreen.ActionActivity
 import com.example.expenseappmvvm.screen.loginScreen.LoginActivity
+import com.example.expenseappmvvm.screen.mainScreen.MainActivity
 import com.example.expenseappmvvm.screen.splashScreen.SplashViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,10 +36,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        registerViewModel.autologin.observe(this, {
-            startActivity(Intent(this, ActionActivity::class.java))
-        })
-
         registerViewModel.redirectToLogin.observe(this, {
             startActivity(Intent(this, LoginActivity::class.java))
         })
@@ -47,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             if (it) {
                 Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.register_failed), Toast.LENGTH_SHORT).show()
             }
         })
     }

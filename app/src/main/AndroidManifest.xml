@@ -18,13 +18,7 @@
             android:theme="@style/noToolbarActivity"/>
         <activity
             android:name=".screen.splashScreen.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity
-            android:name=".screen.registerScreen.RegisterActivity"
-            android:theme="@style/noToolbarActivity" />
-        <activity
-            android:name=".screen.mainScreen.MainActivity"
-            android:theme="@style/noToolbarActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:exported="true">
 
             <intent-filter>
@@ -34,6 +28,12 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".screen.registerScreen.RegisterActivity"
+            android:theme="@style/noToolbarActivity" />
+        <activity
+            android:name=".screen.mainScreen.MainActivity"
+            android:theme="@style/noToolbarActivity"/>
         <activity
             android:name=".screen.resetScreen.ResetActivity"
             android:theme="@style/noToolbarActivity" />

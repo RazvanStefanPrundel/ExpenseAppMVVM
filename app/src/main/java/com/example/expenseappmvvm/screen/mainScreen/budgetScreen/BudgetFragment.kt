@@ -2,14 +2,15 @@ package com.example.expenseappmvvm.screen.mainScreen.budgetScreen
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.databinding.FragmentBudgetBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.android.synthetic.main.fragment_budget.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,51 +18,55 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BudgetFragment : Fragment() {
     private val budgetViewModel: BudgetViewModel by viewModel()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        DataBindingUtil.setContentView<FragmentBudgetBinding>(
-            requireActivity(),
-            R.layout.fragment_budget
-        ).apply {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        return DataBindingUtil.inflate<FragmentBudgetBinding>(inflater, R.layout.fragment_budget, container, false).apply {
             viewModel = this@BudgetFragment.budgetViewModel
             lifecycleOwner = this@BudgetFragment
-        }
+        }.root
+    }
 
-        initComponents()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initObservers()
+        initComponents()
     }
 
-    private fun initComponents(){
+    private fun initComponents() {
         budgetViewModel.initAmounts()
-        setBarChart()
-
-        if (budgetViewModel.currentBalance.value!! < 0.0) {
-            ll_current_balance.setBackgroundResource(R.drawable.border_current_balance_negative)
-            tv_current_balance_txt.setTextColor(resources.getColor(R.color.red))
-            tv_current_balance.setTextColor(resources.getColor(R.color.red))
-        } else {
-            ll_current_balance.setBackgroundResource(R.drawable.border_current_balance_positive)
-            tv_current_balance_txt.setTextColor(resources.getColor(R.color.green))
-            tv_current_balance.setTextColor(resources.getColor(R.color.green))
-        }
-    }
-
-    private fun initObservers(){
-
-    }
-
-    private fun setBarChart() {
-
         budgetViewModel.initBarChartData()
+    }
 
-        val barDataSetP = BarDataSet(budgetViewModel.barsEntriesP, "")
-        val barDataSetN = BarDataSet(budgetViewModel.barsEntriesN, "")
+    private fun initObservers() {
+        budgetViewModel.currentBalance.observe(viewLifecycleOwner, {
+            if (it < 0.0) {
+                negativeBalance()
+            } else {
+                positiveBalance()
+            }
+        })
 
-        barDataSetN.setColors(Color.RED)
-        barDataSetP.setColors(Color.GREEN)
-        val barData = BarData()
-        barData.addDataSet(barDataSetP)
-        barData.addDataSet(barDataSetN)
+        budgetViewModel.barDataSetP.observe(viewLifecycleOwner, {
+            it.setColors(Color.GREEN)
+        })
+
+        budgetViewModel.barDataSetN.observe(viewLifecycleOwner, {
+            it.setColors(Color.RED)
+        })
+
+        budgetViewModel.barData.observe(viewLifecycleOwner, {
+            setBarChart(it)
+        })
+
+    }
+
+    //TODO
+    private fun setBarChart(barData: BarData) {
         chart_budget_details.animateY(1500)
 
         val xAxisLabels = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -72,7 +77,16 @@ class BudgetFragment : Fragment() {
         chart_budget_details.invalidate()
     }
 
-    companion object {
-        fun newInstance() = BudgetFragment()
+    private fun positiveBalance() {
+        ll_current_balance.setBackgroundResource(R.drawable.border_current_balance_positive)
+        tv_current_balance_txt.setTextColor(resources.getColor(R.color.green))
+        tv_current_balance.setTextColor(resources.getColor(R.color.green))
     }
+
+    private fun negativeBalance() {
+        ll_current_balance.setBackgroundResource(R.drawable.border_current_balance_negative)
+        tv_current_balance_txt.setTextColor(resources.getColor(R.color.red))
+        tv_current_balance.setTextColor(resources.getColor(R.color.red))
+    }
+
 }

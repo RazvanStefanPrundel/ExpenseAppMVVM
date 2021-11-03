@@ -5,6 +5,8 @@ import com.example.expenseappmvvm.screen.loginScreen.LoginViewModel
 import com.example.expenseappmvvm.screen.mainScreen.MainViewModel
 import com.example.expenseappmvvm.screen.mainScreen.budgetScreen.BudgetViewModel
 import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.ExpenseViewModel
+import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerViewModel
+import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.dialog.DialogViewModel
 import com.example.expenseappmvvm.screen.registerScreen.RegisterViewModel
 import com.example.expenseappmvvm.screen.resetScreen.ResetViewModel
 import com.example.expenseappmvvm.screen.splashScreen.SplashViewModel
@@ -22,4 +24,6 @@ val viewModelsModule: Module = module {
     viewModel { ExpenseViewModel(get(), get()) }
     viewModel { BudgetViewModel(get(), get(), get(), get()) }
     viewModel { ActionViewModel(get(), get(), get(), get()) }
+    viewModel { ViewPagerViewModel(get(), get(), get(), get()) }
+    viewModel { DialogViewModel(get(), get(), get()) }
 }

@@ -9,6 +9,3 @@ fun setCustomText(textView: TextView, customText: Int) {
         textView.context.getString(customText)
     else ""
 }
-
-
-

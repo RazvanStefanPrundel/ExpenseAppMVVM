@@ -9,7 +9,6 @@ import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.data.database.entities.User
 import com.example.expenseappmvvm.data.database.prefs.PreferencesProvider
 import com.example.expenseappmvvm.data.database.repositories.UserRepository
-import com.example.expenseappmvvm.screen.splashScreen.SplashViewModel
 import com.example.expenseappmvvm.utils.FormErrorsEnum
 import com.example.expenseappmvvm.utils.SingleLiveEvent
 import com.example.expenseappmvvm.utils.Validations
@@ -25,7 +24,7 @@ class RegisterViewModel(
     private val userRepository: UserRepository,
     private val prefs: PreferencesProvider
 ) : ViewModel() {
-    val autologin = SingleLiveEvent<Any>()
+
     val redirectToLogin = SingleLiveEvent<Any>()
     val registerStatus = SingleLiveEvent<Boolean>()
 
@@ -34,7 +33,7 @@ class RegisterViewModel(
     val formErrorsList = ObservableArrayList<FormErrorsEnum>()
     val passwordErr = MutableLiveData<Int>().apply { value = 0 }
 
-    private var isValid = true
+    private var isValid = false
 
     public override fun onCleared() {
         super.onCleared()
@@ -92,6 +91,7 @@ class RegisterViewModel(
         })
     }
 
+    // TODO
     fun validateRegister() {
         formErrorsList.clear()
         isValid = true
@@ -114,15 +114,13 @@ class RegisterViewModel(
     }
 
     private fun registerIntoDatabase() {
-
         user.value?.let { user ->
             userRepository.insertUser(user)
                 .subscribeOn(rxSchedulers.background())
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
                     registerStatus.value = true
-                    prefs.saveUserId(user.userId)
-                    autologin.call()
+                    redirectToLogin.call()
                 }, {
                     registerStatus.value = false
                     Timber.e(it.localizedMessage)

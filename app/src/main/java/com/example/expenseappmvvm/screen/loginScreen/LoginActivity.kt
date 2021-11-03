@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         })
 
         loginViewModel.redirectToMain.observe(this, {
-            startActivity(Intent(this, ActionActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         })
 
         loginViewModel.loginStatus.observe(this, {

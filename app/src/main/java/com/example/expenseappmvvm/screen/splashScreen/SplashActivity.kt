@@ -12,6 +12,7 @@ import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.databinding.ActivitySplashBinding
 import com.example.expenseappmvvm.screen.actionScreen.ActionActivity
 import com.example.expenseappmvvm.screen.loginScreen.LoginActivity
+import com.example.expenseappmvvm.screen.mainScreen.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun initObserver(){
         splashViewModel.autoLogin.observe(this, {
-            startActivity(Intent(this, ActionActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         })
     }
 

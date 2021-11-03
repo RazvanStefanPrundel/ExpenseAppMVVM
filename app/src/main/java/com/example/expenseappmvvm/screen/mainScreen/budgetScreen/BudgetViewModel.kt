@@ -5,8 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.example.expenseappmvvm.data.database.entities.Expense
 import com.example.expenseappmvvm.data.database.prefs.PreferencesProvider
 import com.example.expenseappmvvm.data.database.repositories.ExpenseRepository
+import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfDay
+import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfMonth
+import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfWeek
 import com.example.expenseappmvvm.utils.rxUtils.AppRxSchedulers
 import com.example.expenseappmvvm.utils.rxUtils.disposeBy
+import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import io.reactivex.disposables.CompositeDisposable
@@ -19,8 +23,7 @@ class BudgetViewModel(
     private val rxSchedulers: AppRxSchedulers,
     private val prefs: PreferencesProvider
 ) : ViewModel() {
-    val barsEntriesP: ArrayList<BarEntry> = ArrayList()
-    val barsEntriesN: ArrayList<BarEntry> = ArrayList()
+    val barData = MutableLiveData<BarData>().apply { value = BarData() }
 
     val expense = MutableLiveData<Expense>().apply { value = Expense() }
 
@@ -30,19 +33,20 @@ class BudgetViewModel(
 
     var currentBalance = MutableLiveData<Double>().apply { value = 0.0 }
 
-    private val userId = prefs.getUserId()!!
+    val barDataSetP = MutableLiveData<BarDataSet>()
+    val barDataSetN = MutableLiveData<BarDataSet>()
+
+    private val userId = prefs.getUserId()
 
     private val cal = Calendar.getInstance()
 
     private val sumOfMonth = MutableList(12) { 0.0 }
 
-    private var sumOfMonthAmount = MutableLiveData<Double>().apply { value = 0.0 }
-
-    private val barDataSetP = MutableLiveData<BarDataSet>().apply { value = BarDataSet(barsEntriesP, "") }
-    private val barDataSetN = MutableLiveData<BarDataSet>().apply { value = BarDataSet(barsEntriesN, "") }
+    private val barsEntriesP: ArrayList<BarEntry> = ArrayList()
+    private val barsEntriesN: ArrayList<BarEntry> = ArrayList()
 
     fun initAmounts() {
-        expense.value?.let {
+        currentBalance.value?.let {
             expenseRepository.getCurrentBalance(userId)
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
@@ -53,40 +57,42 @@ class BudgetViewModel(
                 .disposeBy(compositeDisposable)
         }
 
-        cal.set(Calendar.HOUR_OF_DAY, 1)
-        val today = cal.timeInMillis
-        cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)
-        val week = cal.timeInMillis
-        cal.set(Calendar.DAY_OF_MONTH, 1)
-        val month = cal.timeInMillis
+        val todayS = getStartOfDay(0, 0)
+        val todayE = getStartOfDay(23, 59)
 
-        expense.value?.let {
-            expenseRepository.getExpensesAmount(today, userId)
+        val weekS = getStartOfWeek(cal.firstDayOfWeek)
+        val weekE = getStartOfWeek(cal.getActualMaximum(Calendar.DAY_OF_WEEK))
+
+        val monthS = getStartOfMonth(cal.get(Calendar.MONTH), 1)
+        val monthE = getStartOfMonth(cal.getActualMaximum(Calendar.MONTH), cal.getActualMaximum(Calendar.DAY_OF_MONTH))
+
+        todayExpense.value?.let {
+            expenseRepository.getExpensesAmountFromTo(todayS, todayE, userId)
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
-                    todayExpense.value = it
+                    todayExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
                 })
                 .disposeBy(compositeDisposable)
         }
 
-        expense.value?.let {
-            expenseRepository.getExpensesAmount(week, userId)
+        weekExpense.value?.let {
+            expenseRepository.getExpensesAmountFromTo(weekS, weekE, userId)
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
-                    weekExpense.value = it
+                    weekExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
                 })
                 .disposeBy(compositeDisposable)
         }
 
-        expense.value?.let {
-            expenseRepository.getExpensesAmount(month, userId)
+        monthExpense.value?.let {
+            expenseRepository.getExpensesAmountFromTo(monthS, monthE, userId)
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
-                    monthExpense.value = it
+                    monthExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
                 })
@@ -94,11 +100,12 @@ class BudgetViewModel(
         }
     }
 
+    //TODO
     fun initBarChartData() {
         for (i in 0..11) {
-            val firstDayOfMonth = getFirstDayOfMonth(i)
-            val firstDayOfNextMonth = getFirstDayOfMonth(i + 1)
-            sumOfMonthAmount.value?.let {
+            val firstDayOfMonth = getStartOfMonth(i, 1)
+            val firstDayOfNextMonth = getStartOfMonth(i + 1, 1)
+            expense.value?.let {
                 expenseRepository.getExpenseFromTo(firstDayOfMonth, firstDayOfNextMonth, userId)
                     .observeOn(rxSchedulers.androidUI())
                     .subscribe({
@@ -106,7 +113,6 @@ class BudgetViewModel(
                     }, {
                         Timber.e(it.localizedMessage)
                     }).disposeBy(compositeDisposable)
-                sumOfMonth[i]
 
                 if (sumOfMonth[i] < 0.0) {
                     barsEntriesN.add(BarEntry(i.toFloat(), sumOfMonth[i].toFloat()))
@@ -117,15 +123,9 @@ class BudgetViewModel(
                 }
             }
         }
-    }
 
-    private fun getFirstDayOfMonth(monthOfYear: Int): Long {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, monthOfYear)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        return calendar.timeInMillis
+        barData.value!!.addDataSet(barDataSetP.value)
+        barData.value!!.addDataSet(barDataSetN.value)
     }
 
 }

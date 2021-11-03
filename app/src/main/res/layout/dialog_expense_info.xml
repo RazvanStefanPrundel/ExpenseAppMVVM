@@ -1,194 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.dialog.DialogViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dialog_category"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/space_20dp"
-            android:background="@drawable/bg_expense_type_rectangle"
-            app:layout_constraintBottom_toBottomOf="@+id/dialog_cl_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/dialog_cl_date">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dialog_category"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/space_20dp"
+                android:background="@drawable/bg_expense_type_rectangle"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_cl_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dialog_cl_date">
+
+                <ImageView
+                    android:id="@+id/dialog_img_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_11dp"
+                    android:layout_marginVertical="@dimen/space_5dp"
+                    android:src="@drawable/img_income"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dialog_tv_category_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_11dp"
+                    android:layout_marginVertical="@dimen/space_5dp"
+                    android:text="@string/txt_income_category"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dialog_img_category" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dialog_cl_date"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_20dp"
+                android:layout_marginTop="@dimen/space_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dialog_category"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/dialog_tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_date_action"
+                    android:textSize="@dimen/size_15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/dialog_et_date"
+                    android:layout_width="@dimen/space_0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:focusedByDefault="false"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/size_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dialog_tv_date" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dialog_cl_amount"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dialog_category"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_cl_date">
+
+                <TextView
+                    android:id="@+id/dialog_tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_amount_action"
+                    android:textSize="@dimen/size_15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/dialog_et_amount"
+                    android:layout_width="@dimen/space_0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:focusedByDefault="false"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/size_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dialog_tv_amount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dialog_cl_details"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_cl_amount">
+
+                <TextView
+                    android:id="@+id/dialog_tv_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_details_action"
+                    android:textSize="@dimen/size_15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/dialog_et_details"
+                    android:layout_width="@dimen/space_0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:focusedByDefault="false"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/size_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dialog_tv_details" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/dialog_img_category"
-                android:layout_width="wrap_content"
+                android:id="@+id/dialog_img_details"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_11dp"
-                android:layout_marginVertical="@dimen/space_5dp"
-                android:src="@drawable/img_income"
+                android:layout_margin="@dimen/space_20dp"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_cl_action"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/dialog_cl_details" />
 
-            <TextView
-                android:id="@+id/dialog_tv_category_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_11dp"
-                android:layout_marginVertical="@dimen/space_5dp"
-                android:text="@string/txt_income_category"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dialog_img_category" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dialog_cl_date"
-            android:layout_width="@dimen/space_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_20dp"
-            android:layout_marginTop="@dimen/space_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dialog_category"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/dialog_tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_date_action"
-                android:textSize="@dimen/size_15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/dialog_et_date"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dialog_cl_action"
                 android:layout_width="@dimen/space_0dp"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusableInTouchMode="false"
-                android:focusedByDefault="false"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="@dimen/size_14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dialog_tv_date" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dialog_cl_amount"
-            android:layout_width="@dimen/space_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dialog_category"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_cl_date">
-
-            <TextView
-                android:id="@+id/dialog_tv_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_amount_action"
-                android:textSize="@dimen/size_15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/dialog_et_amount"
-                android:layout_width="@dimen/space_0dp"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusableInTouchMode="false"
-                android:focusedByDefault="false"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="@dimen/size_14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dialog_tv_amount" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dialog_cl_details"
-            android:layout_width="@dimen/space_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_cl_amount">
-
-            <TextView
-                android:id="@+id/dialog_tv_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_details_action"
-                android:textSize="@dimen/size_15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/dialog_et_details"
-                android:layout_width="@dimen/space_0dp"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusableInTouchMode="false"
-                android:focusedByDefault="false"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="@dimen/size_14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dialog_tv_details" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/dialog_img_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_20dp"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_cl_action"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialog_cl_details" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dialog_cl_action"
-            android:layout_width="@dimen/space_0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/dialog_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_delete"
-                android:textColor="@color/red"
-                android:textSize="@dimen/size_16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/dialog_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_edit"
-                android:textColor="@color/green"
-                android:textSize="@dimen/size_16sp"
+                android:layout_margin="@dimen/space_20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/dialog_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:onClick="@{()->viewModel.deleteExpense()}"
+                    android:text="@string/txt_delete"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dialog_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:onClick="@{()->viewModel.redirectToEditExpense()}"
+                    android:text="@string/txt_edit"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

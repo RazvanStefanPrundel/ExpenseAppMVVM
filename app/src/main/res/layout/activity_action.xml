@@ -49,7 +49,6 @@
                 android:focusableInTouchMode="false"
                 android:focusedByDefault="false"
                 android:onClick="@{()->viewModel.onClickOpenDateTimePicker()}"
-                android:text="@={viewModel.date}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_date" />
@@ -80,6 +79,16 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
+                android:id="@+id/tv_amount_error"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toStartOf="@+id/et_amount_value"
+                app:layout_constraintEnd_toEndOf="@+id/et_amount_value"
+                app:layout_constraintTop_toBottomOf="@id/et_amount_value"/>
+
+            <TextView
                 android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +97,7 @@
                 android:text="@string/txt_category_action"
                 android:textSize="@dimen/size_16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_amount_value" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_amount_error" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_category"
@@ -126,7 +135,7 @@
                 android:layout_width="@dimen/space_0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_20dp"
-                android:src="@drawable/navbar_expense"
+                android:src="@drawable/empty_img_db"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ib_delete"
                 app:layout_constraintStart_toStartOf="parent"
@@ -153,6 +162,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/iv_detail_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_detail_photo" />
+
+            <ProgressBar
+                android:id="@+id/progress_loader"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

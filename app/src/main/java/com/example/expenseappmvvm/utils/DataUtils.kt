@@ -2,9 +2,10 @@ package com.example.expenseappmvvm.utils
 
 import java.text.SimpleDateFormat
 
-class DateUtil {
+class DataUtils {
     companion object{
-        val sdf = SimpleDateFormat("yyyy-MM-dd 'at' HH:mm")
         var actionIndex = 0
+        var EXPENSE_ID = 0L
+        val sdf = SimpleDateFormat("yyyy-MM-dd 'at' HH:mm")
     }
 }

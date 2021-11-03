@@ -75,6 +75,7 @@ class LoginViewModel(
         })
     }
 
+    // TODO 
     fun validateLogin() {
         formErrorsList.clear()
         isValid = true
@@ -97,10 +98,6 @@ class LoginViewModel(
         redirectToReset.call()
     }
 
-    fun onClickLogin() {
-        redirectToMain.call()
-    }
-
     private fun verifyUserLoginData() {
         user.value?.let {
             userRepository.getUserLogin(user.value!!.userEmail, user.value!!.userPassword)
@@ -109,7 +106,7 @@ class LoginViewModel(
                 .subscribe({
                     loginStatus.value = true
                     prefs.saveUserId(it.userId)
-                    onClickLogin()
+                    redirectToMain.call()
                 }, {
                     loginStatus.value = false
                     Timber.e(it.localizedMessage)

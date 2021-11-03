@@ -18,7 +18,7 @@ class PreferencesProvider(context: Context) {
         ).apply()
     }
 
-    fun getUserId(): Long? {
+    fun getUserId(): Long {
         return preferences.getLong(USER_ID, 0L)
     }
 

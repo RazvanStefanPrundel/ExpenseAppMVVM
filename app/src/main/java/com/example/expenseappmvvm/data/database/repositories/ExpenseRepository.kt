@@ -6,28 +6,28 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 class ExpenseRepository(private val appDatabase: AppDatabase) {
-    fun insertExpense(expenses: Expense): Single<Long> {
-        return appDatabase.expenseDao().insertExpense(expenses)
+    fun insertExpense(expense: Expense): Single<Long> {
+        return appDatabase.expenseDao().insertExpense(expense)
     }
 
-    fun updateExpense(expenses: Expense){
-        appDatabase.expenseDao().updateExpense(expenses)
+    fun updateExpense(expense: Expense): Single<Int> {
+        return appDatabase.expenseDao().updateExpense(expense)
     }
 
-    fun deleteExpense(expenses: Expense){
-        appDatabase.expenseDao().deleteExpense(expenses)
+    fun deleteExpense(expense: Expense): Single<Int> {
+        return appDatabase.expenseDao().deleteExpense(expense)
     }
 
-    fun getExpense(idExpense: Long): Expense{
+    fun getExpense(idExpense: Long): Single<Expense> {
         return appDatabase.expenseDao().getExpense(idExpense)
     }
 
-    fun getActionsFrom(expensesFrom: Long, idUser: Long): Observable<List<Expense>> {
-        return appDatabase.expenseDao().getActionsFrom(expensesFrom, idUser)
+    fun getActionsFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Observable<List<Expense>> {
+        return appDatabase.expenseDao().getActionsFromTo(expensesFrom, expensesTo, idUser)
     }
 
-    fun getExpensesAmount(expensesFrom: Long, idUser: Long): Observable<Double> {
-        return appDatabase.expenseDao().getExpensesAmount(expensesFrom, idUser)
+    fun getExpensesAmountFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Observable<Double> {
+        return appDatabase.expenseDao().getExpensesAmountFromTo(expensesFrom, expensesTo, idUser)
     }
 
     fun getCurrentBalance(idUser: Long): Observable<Double> {
@@ -35,6 +35,6 @@ class ExpenseRepository(private val appDatabase: AppDatabase) {
     }
 
     fun getExpenseFromTo(fromDate: Long, toDate: Long, idUser: Long): Observable<Double> {
-        return appDatabase.expenseDao().getExpenseFromTo(fromDate, toDate, idUser)
+        return appDatabase.expenseDao().getActionFromTo(fromDate, toDate, idUser)
     }
 }

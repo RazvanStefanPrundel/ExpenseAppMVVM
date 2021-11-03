@@ -7,6 +7,4 @@ import io.reactivex.disposables.CompositeDisposable
 class ExpenseViewModel(
     private val compositeDisposable: CompositeDisposable,
     private val rxSchedulers: AppRxSchedulers
-) : ViewModel() {
-    // TODO: Implement the ViewModel
-}
+) : ViewModel()

@@ -24,7 +24,7 @@ class SplashViewModel(
 
         if (prefs.getUserId() != 0L) {
             user.value?.let {
-                userRepository.getUserById(prefs.getUserId()!!)
+                userRepository.getUserById(prefs.getUserId())
                     .subscribeOn(rxSchedulers.background())
                     .observeOn(rxSchedulers.androidUI())
                     .subscribe({
