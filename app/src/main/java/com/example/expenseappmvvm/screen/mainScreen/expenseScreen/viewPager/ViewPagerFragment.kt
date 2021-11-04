@@ -16,10 +16,6 @@ import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.dial
 import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfMonth
 import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfWeek
 import com.example.expenseappmvvm.utils.CalendarUtils.Companion.getStartOfYear
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.fragment_view_pager.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -52,10 +48,23 @@ class ViewPagerFragment : Fragment() {
         }
 
         initDataInTab(tabSelected)
+        initObservers()
+        initComponents()
+
     }
 
     fun expenseClick(expenseId: Long) {
         DialogFragment(requireContext(), expenseId).show(childFragmentManager, DialogFragment.TAG)
+    }
+
+    private fun initComponents(){
+        viewPagerViewModel.initPieChartData()
+    }
+
+    private fun initObservers() {
+        viewPagerViewModel.expensesList.observe(viewLifecycleOwner, {
+            expensesRCV(it)
+        })
     }
 
     private fun initDataInTab(tabSelect: String?) {
@@ -71,46 +80,20 @@ class ViewPagerFragment : Fragment() {
 
         when (tabSelect) {
             ViewPagerAdapter.WEEK_TAB -> {
-                viewPagerViewModel.initDataForTab(weekS, weekE)
+                viewPagerViewModel.initExpensesAmount(weekS, weekE)
+                viewPagerViewModel.initExpenseList(weekS, weekE)
             }
 
             ViewPagerAdapter.MONTH_TAB -> {
-                viewPagerViewModel.initDataForTab(monthS, monthE)
+                viewPagerViewModel.initExpensesAmount(monthS, monthE)
+                viewPagerViewModel.initExpenseList(monthS, monthE)
             }
 
             ViewPagerAdapter.YEAR_TAB -> {
-                viewPagerViewModel.initDataForTab(yearS, yearE)
+                viewPagerViewModel.initExpensesAmount(yearS, yearE)
+                viewPagerViewModel.initExpenseList(yearS, yearE)
             }
         }
-
-        initTabObservers()
-    }
-
-    fun initTabObservers() {
-        viewPagerViewModel.expensesAmount.observe(viewLifecycleOwner, {
-            tv_current_balance_expenses.text = it.toString()
-        })
-
-        viewPagerViewModel.expensesList.observe(viewLifecycleOwner, {
-            expensesRCV(it)
-        })
-
-        viewPagerViewModel.pieDataSet.observe(viewLifecycleOwner, {
-            setPieChart(it)
-        })
-    }
-
-    //TODO
-    private fun setPieChart(pieDataSet: PieDataSet) {
-
-        pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
-        pieDataSet.sliceSpace = 2f
-        pieDataSet.valueTextSize = 10f
-        pieDataSet.sliceSpace = 5f
-        chart_expenses.centerText = "Expenses %"
-        chart_expenses.animateY(1500, Easing.EaseInOutQuad)
-        chart_expenses.data = PieData(pieDataSet)
-        chart_expenses.invalidate()
 
     }
 
@@ -147,4 +130,5 @@ class ViewPagerFragment : Fragment() {
                 }
             }
     }
+
 }

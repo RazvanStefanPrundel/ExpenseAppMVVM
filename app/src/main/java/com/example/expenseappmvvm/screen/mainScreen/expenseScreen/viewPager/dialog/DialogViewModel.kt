@@ -4,11 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.expenseappmvvm.data.database.entities.Expense
 import com.example.expenseappmvvm.data.database.repositories.ExpenseRepository
+import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerFragment
 import com.example.expenseappmvvm.utils.ImageStorageManager
 import com.example.expenseappmvvm.utils.SingleLiveEvent
 import com.example.expenseappmvvm.utils.rxUtils.AppRxSchedulers
 import com.example.expenseappmvvm.utils.rxUtils.disposeBy
 import io.reactivex.disposables.CompositeDisposable
+import okhttp3.internal.notify
 import timber.log.Timber
 
 class DialogViewModel(
@@ -44,7 +46,6 @@ class DialogViewModel(
                 })
                 .disposeBy(compositeDisposable)
         }
-
 
     }
 

@@ -1,24 +1,31 @@
 package com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.dialog
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.data.database.entities.Expense
 import com.example.expenseappmvvm.databinding.DialogExpenseInfoBinding
 import com.example.expenseappmvvm.screen.actionScreen.ActionActivity
+import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.ExpenseFragment
 import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerFragment
 import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerViewModel
 import com.example.expenseappmvvm.utils.DataUtils
 import com.example.expenseappmvvm.utils.DataUtils.Companion.sdf
 import com.example.expenseappmvvm.utils.ImageStorageManager
 import kotlinx.android.synthetic.main.dialog_expense_info.*
+import kotlinx.android.synthetic.main.fragment_expense.*
+import kotlinx.android.synthetic.main.fragment_view_pager.*
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DialogFragment(
@@ -43,8 +50,7 @@ class DialogFragment(
         super.onStart()
         dialog?.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
+            WindowManager.LayoutParams.WRAP_CONTENT )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,9 +64,10 @@ class DialogFragment(
         dialogViewModel.expenseForDialog.observe(viewLifecycleOwner, {
             populateDialog(it)
         })
-
+//TODO
         dialogViewModel.deleteExpense.observe(viewLifecycleOwner, {
             ImageStorageManager.deleteImageFromInternalStorage(ctx, it)
+            Toast.makeText(ctx, "Please reload page to see changes!", Toast.LENGTH_SHORT).show()
             dismiss()
         })
 

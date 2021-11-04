@@ -59,22 +59,6 @@ class BudgetFragment : Fragment() {
             it.setColors(Color.RED)
         })
 
-        budgetViewModel.barData.observe(viewLifecycleOwner, {
-            setBarChart(it)
-        })
-
-    }
-
-    //TODO
-    private fun setBarChart(barData: BarData) {
-        chart_budget_details.animateY(1500)
-
-        val xAxisLabels = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-        chart_budget_details.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels)
-        chart_budget_details.xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
-
-        chart_budget_details.data = barData
-        chart_budget_details.invalidate()
     }
 
     private fun positiveBalance() {

@@ -53,8 +53,7 @@ class BudgetViewModel(
                     currentBalance.value = it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
-                .disposeBy(compositeDisposable)
+                }).disposeBy(compositeDisposable)
         }
 
         val todayS = getStartOfDay(0, 0)
@@ -73,8 +72,7 @@ class BudgetViewModel(
                     todayExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
-                .disposeBy(compositeDisposable)
+                }).disposeBy(compositeDisposable)
         }
 
         weekExpense.value?.let {
@@ -84,8 +82,7 @@ class BudgetViewModel(
                     weekExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
-                .disposeBy(compositeDisposable)
+                }).disposeBy(compositeDisposable)
         }
 
         monthExpense.value?.let {
@@ -95,8 +92,7 @@ class BudgetViewModel(
                     monthExpense.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
-                .disposeBy(compositeDisposable)
+                }).disposeBy(compositeDisposable)
         }
     }
 

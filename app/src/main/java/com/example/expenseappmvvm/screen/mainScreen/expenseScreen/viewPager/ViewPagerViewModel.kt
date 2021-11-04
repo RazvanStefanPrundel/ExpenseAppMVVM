@@ -27,7 +27,7 @@ class ViewPagerViewModel(
 
     private val userId = prefs.getUserId()
 
-    fun initDataForTab(from: Long, to: Long) {
+    fun initExpensesAmount(from: Long, to: Long) {
         expensesAmount.value?.let {
             expenseRepository.getExpensesAmountFromTo(from, to, userId)
                 .observeOn(rxSchedulers.androidUI())
@@ -35,10 +35,11 @@ class ViewPagerViewModel(
                     expensesAmount.value = -it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
-                .disposeBy(compositeDisposable)
+                }).disposeBy(compositeDisposable)
         }
+    }
 
+    fun initExpenseList(from: Long, to: Long) {
         expensesList.value?.let {
             expenseRepository.getActionsFromTo(from, to, userId)
                 .observeOn(rxSchedulers.androidUI())
@@ -46,14 +47,14 @@ class ViewPagerViewModel(
                     expensesList.value = it
                 }, {
                     Timber.e(it.localizedMessage)
-                })
+                }).disposeBy(compositeDisposable)
         }
-
-        initPieChartData(expensesAmount.value!!, expensesList.value!!)
     }
 
     //TODO
-    private fun initPieChartData(totalAmount: Double, expenses: List<Expense>) {
+    fun initPieChartData() {
+        val totalAmount = expensesAmount.value!!
+        val expenses = expensesList.value!!
 
         val pieEntries: ArrayList<PieEntry> = ArrayList()
 
@@ -61,14 +62,14 @@ class ViewPagerViewModel(
         val categoryName = listOf("Food", "Car", "Clothes", "Savings", "Health", "Beauty", "Travel")
 
         for (i in expenses) {
-            for (j in 0..6) {
+            for (j in 0 until categorySum.size) {
                 if (i.expenseCategoryName == categoryName[j]) {
                     categorySum[j] += i.expenseAmount
                 }
             }
         }
 
-        for (i in 0..6) {
+        for (i in 0 until categorySum.size) {
             if (categorySum[i] != 0.0) {
                 pieEntries.add(PieEntry(((categorySum[i] / totalAmount) * 100).toFloat(), categoryName[i]))
             }

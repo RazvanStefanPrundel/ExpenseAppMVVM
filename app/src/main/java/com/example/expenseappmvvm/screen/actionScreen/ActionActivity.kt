@@ -94,7 +94,7 @@ class ActionActivity : AppCompatActivity() {
         actionViewModel.openDateTimePicker.observe(this, {
             datePicker()
         })
-//TODO
+
         actionViewModel.photoName.observe(this, {
             initImage()
             bitmapImage = iv_detail_photo.drawable.toBitmap()
