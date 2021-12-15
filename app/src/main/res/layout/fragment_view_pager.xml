@@ -62,7 +62,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_300dp"
                     android:layout_margin="10dp"
-                    app:pieChartData="@{viewModel.pieDataSet}"
                     app:layout_constraintBottom_toTopOf="@+id/rcv_expenses"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

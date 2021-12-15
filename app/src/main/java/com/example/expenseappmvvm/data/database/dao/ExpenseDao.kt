@@ -22,14 +22,14 @@ interface ExpenseDao {
     fun getExpense(idExpense: Long): Single<Expense>
 
     @Query("SELECT * FROM Expenses WHERE expenseDate>=:expensesFrom AND expenseDate<=:expensesTo AND expenseUserId=:idUser")
-    fun getActionsFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Observable<List<Expense>>
+    fun getActionsFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Single<List<Expense>>
 
     @Query("SELECT sum(expenseAmount) FROM Expenses WHERE expenseDate>=:expensesFrom AND expenseDate<=:expensesTo AND expenseAmount < 0.0 AND expenseUserId=:idUser")
-    fun getExpensesAmountFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Observable<Double>
+    fun getExpensesAmountFromTo(expensesFrom: Long, expensesTo: Long, idUser: Long): Single<Double>
 
     @Query("SELECT sum(expenseAmount) FROM Expenses WHERE expenseUserId=:idUser")
-    fun getCurrentBalance(idUser: Long): Observable<Double>
+    fun getCurrentBalance(idUser: Long): Single<Double>
 
     @Query("SELECT sum(expenseAmount) FROM Expenses WHERE expenseDate>=:fromDate AND expenseDate<:toDate AND expenseUserId=:idUser")
-    fun getActionFromTo(fromDate: Long, toDate: Long, idUser: Long): Observable<Double>
+    fun getExpensesFromTo(fromDate: Long, toDate: Long, idUser: Long): Double
 }

@@ -53,7 +53,7 @@ class ResetViewModel(
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 formErrorsList.clear()
                 isValid = true
-                if (!Validations.emailValidation(user.value!!.userEmail)) {
+                if (!Validations.isEmailInvalid(user.value!!.userEmail)) {
                     addFormError(FormErrorsEnum.INVALID_EMAIL)
                 }
             }

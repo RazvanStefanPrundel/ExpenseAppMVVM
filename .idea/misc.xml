@@ -23,7 +23,7 @@
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/back_arrow_icon.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_nav_btn_default.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_nav_btn_selected.xml" value="0.24166666666666667" />
-        <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_rectangle.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_rectangle.xml" value="0.5" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_type_rectangle.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/bg_expense_type_rectangle_selected.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/drawable/border_current_balance_negative.xml" value="0.24166666666666667" />
@@ -51,6 +51,7 @@
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/layout/toolbar.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/menu/bottom_nav_bar.xml" value="0.1984375" />
         <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/menu/bottom_nav_menu.xml" value="0.371875" />
+        <entry key="..\:/Users/Radu/Desktop/New folder/ExpenseAppMVVM/app/src/main/res/menu/navigation_drawer_menu.xml" value="0.2078125" />
       </map>
     </option>
   </component>

@@ -1,7 +1,6 @@
 package com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.dialog
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,17 +14,12 @@ import com.example.expenseappmvvm.R
 import com.example.expenseappmvvm.data.database.entities.Expense
 import com.example.expenseappmvvm.databinding.DialogExpenseInfoBinding
 import com.example.expenseappmvvm.screen.actionScreen.ActionActivity
-import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.ExpenseFragment
-import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerFragment
-import com.example.expenseappmvvm.screen.mainScreen.expenseScreen.viewPager.ViewPagerViewModel
-import com.example.expenseappmvvm.utils.DataUtils
-import com.example.expenseappmvvm.utils.DataUtils.Companion.sdf
+import com.example.expenseappmvvm.utils.DataStorage
+import com.example.expenseappmvvm.utils.DataStorage.sdf
 import com.example.expenseappmvvm.utils.ImageStorageManager
 import kotlinx.android.synthetic.main.dialog_expense_info.*
 import kotlinx.android.synthetic.main.fragment_expense.*
 import kotlinx.android.synthetic.main.fragment_view_pager.*
-import okhttp3.internal.notify
-import okhttp3.internal.notifyAll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DialogFragment(
@@ -50,7 +44,8 @@ class DialogFragment(
         super.onStart()
         dialog?.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT )
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,8 +68,8 @@ class DialogFragment(
 
         dialogViewModel.redirectToEdit.observe(viewLifecycleOwner, {
             val intent = Intent(ctx, ActionActivity::class.java)
-            DataUtils.EXPENSE_ID = expenseId
-            DataUtils.actionIndex = 1
+            DataStorage.EXPENSE_ID = expenseId
+            DataStorage.actionIndex = 1
             ctx.startActivity(intent)
             dismiss()
         })
@@ -87,8 +82,8 @@ class DialogFragment(
         dialog_et_amount.setText(expenseInDialog.expenseAmount.toString())
         dialog_et_details.setText(expenseInDialog.expenseDetails)
 
-//        val image = ImageStorageManager.getImageFromInternalStorage(ctx, expenseInDialog.expensePhoto)
-//        dialog_img_details.setImageBitmap(image)
+        val image = ImageStorageManager.getImageFromInternalStorage(ctx, expenseInDialog.expensePhoto)
+        dialog_img_details.setImageBitmap(image)
     }
 
     companion object {

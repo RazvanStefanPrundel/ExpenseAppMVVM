@@ -1,6 +1,5 @@
 package com.example.expenseappmvvm.data.database.repositories
 
-import androidx.lifecycle.MutableLiveData
 import com.example.expenseappmvvm.data.database.AppDatabase
 import com.example.expenseappmvvm.data.database.entities.User
 import io.reactivex.Single

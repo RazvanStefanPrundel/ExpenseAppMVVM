@@ -19,7 +19,7 @@ class DialogViewModel(
     private val rxSchedulers: AppRxSchedulers
 ) : ViewModel()  {
     val redirectToEdit = SingleLiveEvent<Any>()
-    val deleteExpense = SingleLiveEvent<String>()
+    val deleteExpense = MutableLiveData<String>()
     val expenseForDialog = MutableLiveData<Expense>().apply { value = Expense() }
 
     fun getExpenseForDialog(expenseId: Long) {

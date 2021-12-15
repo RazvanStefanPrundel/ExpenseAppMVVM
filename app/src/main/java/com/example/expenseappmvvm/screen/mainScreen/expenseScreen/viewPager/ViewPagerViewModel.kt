@@ -19,7 +19,7 @@ class ViewPagerViewModel(
     private val rxSchedulers: AppRxSchedulers,
     private val prefs: PreferencesProvider
 ) : ViewModel() {
-    val pieDataSet = MutableLiveData<PieDataSet>()
+    val pieDataSet = MutableLiveData<PieDataSet>().apply { value = PieDataSet(listOf(), "") }
 
     val expense = MutableLiveData<Expense>().apply { value = Expense() }
     val expensesAmount = MutableLiveData<Double>().apply { value = 0.0 }
@@ -33,29 +33,27 @@ class ViewPagerViewModel(
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
                     expensesAmount.value = -it
+                    initExpenseList(from, to, it)
                 }, {
                     Timber.e(it.localizedMessage)
                 }).disposeBy(compositeDisposable)
         }
     }
 
-    fun initExpenseList(from: Long, to: Long) {
+    private fun initExpenseList(from: Long, to: Long, totalAmount: Double) {
         expensesList.value?.let {
             expenseRepository.getActionsFromTo(from, to, userId)
                 .observeOn(rxSchedulers.androidUI())
                 .subscribe({
                     expensesList.value = it
+                    initPieChartData(totalAmount, it)
                 }, {
                     Timber.e(it.localizedMessage)
                 }).disposeBy(compositeDisposable)
         }
     }
 
-    //TODO
-    fun initPieChartData() {
-        val totalAmount = expensesAmount.value!!
-        val expenses = expensesList.value!!
-
+    private fun initPieChartData(totalAmount: Double, expenses: List<Expense>){
         val pieEntries: ArrayList<PieEntry> = ArrayList()
 
         val categorySum = MutableList(7) { 0.0 }

@@ -18,29 +18,3 @@ fun setCustomText(textView: TextView, customText: Int) {
         textView.context.getString(customText)
     else ""
 }
-
-@BindingAdapter("pieChartData")
-fun setPieData(pieChart: PieChart ,pieChartData: PieDataSet){
-
-    pieChartData.setColors(*ColorTemplate.COLORFUL_COLORS)
-    pieChartData.sliceSpace = 2f
-    pieChartData.valueTextSize = 10f
-    pieChartData.sliceSpace = 5f
-    pieChart.centerText = "Expenses %"
-    pieChart.animateY(1500, Easing.EaseInOutQuad)
-    pieChart.data = PieData(pieChartData)
-    pieChart.invalidate()
-
-}
-
-@BindingAdapter("barChartData")
-fun setBarData(barChart: BarChart, barData: BarData){
-    barChart.animateY(1500)
-
-    val xAxisLabels = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-    barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels)
-    barChart.xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
-
-    barChart.data = barData
-    barChart.invalidate()
-}

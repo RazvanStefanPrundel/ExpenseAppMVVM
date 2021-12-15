@@ -34,7 +34,7 @@ class LoginViewModel(
     val formErrorsList = ObservableArrayList<FormErrorsEnum>()
     val passwordErr = MutableLiveData<Int>().apply { value = 0 }
 
-    private var isValid = true
+    private var isInvalid = true
 
     public override fun onCleared() {
         super.onCleared()
@@ -46,15 +46,15 @@ class LoginViewModel(
             TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun afterTextChanged(p0: Editable?) {
                 formErrorsList.clear()
-                isValid = true
-                if (!Validations.emailValidation(user.value!!.userEmail)) {
+                isInvalid = false
+                if (Validations.isEmailInvalid(user.value!!.userEmail)) {
                     addFormError(FormErrorsEnum.INVALID_EMAIL)
                 }
             }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
     }
 
@@ -65,8 +65,8 @@ class LoginViewModel(
 
             override fun afterTextChanged(p0: Editable?) {
                 formErrorsList.clear()
-                isValid = true
-                if (!validatePassword()) {
+                isInvalid = false
+                if (validatePassword()) {
                     addFormError(FormErrorsEnum.INVALID_PASSWORD)
                 }
             }
@@ -75,17 +75,16 @@ class LoginViewModel(
         })
     }
 
-    // TODO 
     fun validateLogin() {
         formErrorsList.clear()
-        isValid = true
-        if (!Validations.emailValidation(user.value!!.userEmail)) {
+        isInvalid = false
+        if (Validations.isEmailInvalid(user.value!!.userEmail)) {
             addFormError(FormErrorsEnum.INVALID_EMAIL)
         }
-        if (!validatePassword()) {
+        if (validatePassword()) {
             addFormError(FormErrorsEnum.INVALID_PASSWORD)
         }
-        if (isValid) {
+        if (!isInvalid) {
             verifyUserLoginData()
         }
     }
@@ -115,18 +114,22 @@ class LoginViewModel(
         }
     }
 
-    private fun addFormError(formError: FormErrorsEnum) {
-        formErrorsList.add(formError)
-        isValid = false
-    }
-
     private fun validatePassword(): Boolean {
-        return if (Validations.passwordEmpty(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_empty
-            false
-        } else {
-            passwordErr.value = 0
-            true
+        return when {
+            Validations.passwordEmpty(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_empty
+                true
+            }
+            else -> {
+                passwordErr.value = 0
+                false
+            }
         }
     }
+
+    private fun addFormError(formError: FormErrorsEnum) {
+        formErrorsList.add(formError)
+        isInvalid = true
+    }
+
 }

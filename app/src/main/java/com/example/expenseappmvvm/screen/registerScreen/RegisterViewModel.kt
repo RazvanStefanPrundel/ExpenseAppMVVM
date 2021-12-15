@@ -33,7 +33,7 @@ class RegisterViewModel(
     val formErrorsList = ObservableArrayList<FormErrorsEnum>()
     val passwordErr = MutableLiveData<Int>().apply { value = 0 }
 
-    private var isValid = false
+    private var isInvalid = true
 
     public override fun onCleared() {
         super.onCleared()
@@ -45,15 +45,15 @@ class RegisterViewModel(
             TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun afterTextChanged(s: Editable?) {
                 formErrorsList.clear()
-                isValid = true
-                if (!Validations.nameValidation(user.value!!.userName)) {
+                isInvalid = false
+                if (Validations.isNameInvalid(user.value!!.userName)) {
                     addFormError(FormErrorsEnum.MISSING_NAME)
                 }
             }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
@@ -62,15 +62,15 @@ class RegisterViewModel(
             TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun afterTextChanged(p0: Editable?) {
                 formErrorsList.clear()
-                isValid = true
-                if (!Validations.emailValidation(user.value!!.userEmail)) {
+                isInvalid = false
+                if (Validations.isEmailInvalid(user.value!!.userEmail)) {
                     addFormError(FormErrorsEnum.INVALID_EMAIL)
                 }
             }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
     }
 
@@ -81,30 +81,28 @@ class RegisterViewModel(
 
             override fun afterTextChanged(p0: Editable?) {
                 formErrorsList.clear()
-                isValid = true
-                if (!validatePassword()) {
+                isInvalid = false
+                if (validatePassword()) {
                     addFormError(FormErrorsEnum.INVALID_PASSWORD)
                 }
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
     }
 
-    // TODO
     fun validateRegister() {
         formErrorsList.clear()
-        isValid = true
-        if (!Validations.nameValidation(user.value!!.userName)) {
+        isInvalid = false
+        if (Validations.isNameInvalid(user.value!!.userName)) {
             addFormError(FormErrorsEnum.MISSING_NAME)
         }
-        if (!Validations.emailValidation(user.value!!.userEmail)) {
+        if (Validations.isEmailInvalid(user.value!!.userEmail)) {
             addFormError(FormErrorsEnum.INVALID_EMAIL)
         }
-        if (!validatePassword()) {
+        if (validatePassword()) {
             addFormError(FormErrorsEnum.INVALID_PASSWORD)
         }
-        if (isValid) {
+        if (!isInvalid) {
             registerIntoDatabase()
         }
     }
@@ -131,34 +129,43 @@ class RegisterViewModel(
 
     private fun addFormError(formError: FormErrorsEnum) {
         formErrorsList.add(formError)
-        isValid = false
+        isInvalid = true
     }
 
     private fun validatePassword(): Boolean {
-        if (Validations.passwordEmpty(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_empty
-            return false
-        } else if (!Validations.passwordContainsDigits(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_digits
-            return false
-        } else if (!Validations.passwordContainsLowercase(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_lowercase
-            return false
-        } else if (!Validations.passwordContainsUppercase(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_uppercase
-            return false
-        } else if (!Validations.passwordContainsSpecialChar(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_specialChar
-            return false
-        } else if (!Validations.passwordExcludesSpace(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_whiteSpace
-            return false
-        } else if (!Validations.passwordLength(user.value!!.userPassword)) {
-            passwordErr.value = R.string.password_err_length
-            return false
-        } else {
-            passwordErr.value = 0
-            return true
+        when {
+            Validations.passwordEmpty(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_empty
+                return true
+            }
+            Validations.passwordContainsDigits(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_digits
+                return true
+            }
+            Validations.passwordContainsLowercase(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_lowercase
+                return true
+            }
+            Validations.passwordContainsUppercase(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_uppercase
+                return true
+            }
+            Validations.passwordContainsSpecialChar(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_specialChar
+                return true
+            }
+            Validations.passwordExcludesSpace(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_whiteSpace
+                return true
+            }
+            Validations.passwordLength(user.value!!.userPassword) -> {
+                passwordErr.value = R.string.password_err_length
+                return true
+            }
+            else -> {
+                passwordErr.value = 0
+                return false
+            }
         }
     }
 }

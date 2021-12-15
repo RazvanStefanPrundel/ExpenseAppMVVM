@@ -2,7 +2,8 @@ package com.example.expenseappmvvm.screen.mainScreen
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.logoutUserOnClick()
             startActivity(Intent(this, LoginActivity::class.java))
         }
+
     }
 
     private fun initNavigation() {
@@ -78,4 +80,5 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fragment_host, fragment)
             commit()
         }
+
 }

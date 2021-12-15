@@ -68,7 +68,7 @@
     <string name="password_err_specialChar">Password must contain at least one special character</string>
     <string name="password_err_whiteSpace">Password must not contain spaces</string>
     <string name="password_err_length">Password must be at least 6 characters long</string>
-    <string name="wrong_name">Insert First Name and Last Name</string>
+    <string name="wrong_name">Insert your name</string>
     <string name="password_invalid">Password is not valid</string>
     <string name="wrong_email">Insert a valid Email Address</string>
     <string name="loggin_success">Login success!</string>
@@ -79,5 +79,5 @@
     <string name="action_failed">Action add failed!</string>
     <string name="no_user_found">No user find with this email!</string>
     <string name="field_empty">Field cannot be empty</string>
-    <string name="amount_zero">Amount cannot be 0</string>
+    <string name="amount_valid_number">Enter a valid amount</string>
 </resources>

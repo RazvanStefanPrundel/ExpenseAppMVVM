@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.example.expenseappmvvm.utils.FormErrorsEnum" />
+
         <variable
             name="viewModel"
             type="com.example.expenseappmvvm.screen.actionScreen.ActionViewModel" />
@@ -71,7 +73,7 @@
                 android:layout_margin="@dimen/space_20dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:maxLength="7"
+                android:maxLength="15"
                 android:text="@={viewModel.amount}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,11 +84,11 @@
                 android:id="@+id/tv_amount_error"
                 android:layout_width="@dimen/space_0dp"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:textColor="@color/red"
-                app:layout_constraintStart_toStartOf="@+id/et_amount_value"
+                app:customText="@{viewModel.amountErr}"
                 app:layout_constraintEnd_toEndOf="@+id/et_amount_value"
-                app:layout_constraintTop_toBottomOf="@id/et_amount_value"/>
+                app:layout_constraintStart_toStartOf="@+id/et_amount_value"
+                app:layout_constraintTop_toBottomOf="@id/et_amount_value" />
 
             <TextView
                 android:id="@+id/tv_category"
@@ -157,8 +159,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_20dp"
-                android:onClick="@{()->viewModel.deleteImage()}"
                 android:background="@drawable/img_delete"
+                android:onClick="@{()->viewModel.deleteImage()}"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_detail_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_detail_photo" />
@@ -170,10 +172,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
